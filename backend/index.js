@@ -1,7 +1,10 @@
 // backend/index.js
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+const homeScreenRoutes = require('./routes/HomeScreenbackend');
 
 const app = express();
 const PORT = 3000;
@@ -9,7 +12,10 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/api', (req, res) => {
+// Utilisation des routes
+app.use('/homescreen', homeScreenRoutes);
+
+app.get('/', (req, res) => {
   res.send({ message: 'Hello from the backend!' });
 });
 

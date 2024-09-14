@@ -63,7 +63,6 @@ const MainScreen = () => {
           title="Profile"
           onPress={() => setSelectedScreen('Profile')}
         />
-        {/* Ajoutez d'autres boutons ici pour d'autres écrans */}
       </View>
     </View>
   );

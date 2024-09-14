@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
 import { getlist } from '../tools/API/api'; // Chemin relatif basé sur la structure du projet
-import Scoreboard from '../component/scoreboard'
 const { width, height } = Dimensions.get('window'); // Récupère la largeur et la hauteur de l'écran
 
-const HomeScreen = () => {
+const Scoreboard = () => {
   const [players, setPlayers] = useState([]); // Utiliser useState pour stocker les joueurs
   const [error, setError] = useState(null); // État pour gérer les erreurs
 
@@ -42,10 +41,17 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.baniere}>
-        <Text style={styles.baniereText}>Ici viendra la bannière</Text>
+      <Text style={styles.title}>Tableau des Scores</Text>
+      <View style={styles.tableHeader}>
+        <Text style={styles.headerCell}>Position</Text>
+        <Text style={styles.headerCell}>Nom</Text>
+        <Text style={styles.headerCell}>Score</Text>
       </View>
-      <Scoreboard/> 
+      <FlatList
+        data={players} // Utiliser les données récupérées
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
     </View>
   );
 };
@@ -102,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeScreen;
+export default Scoreboard;
