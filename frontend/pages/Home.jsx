@@ -1,36 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, ActivityIndicator, Dimensions } from 'react-native';
-import { getlist } from '../tools/API/api'; // Chemin relatif basé sur la structure du projet
-import Scoreboard from '../component/scoreboard'
-const { width, height } = Dimensions.get('window'); // Récupère la largeur et la hauteur de l'écran
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import Scoreboard from '../component/scoreboard';
+import Livedata from '../component/livedata';
+
+const NahoImage = require('../image_dev/Naho.png');
+const { width, height } = Dimensions.get('window');
 
 const HomeScreen = () => {
-  const [players, setPlayers] = useState([]); // Utiliser useState pour stocker les joueurs
-  const [error, setError] = useState(null); // État pour gérer les erreurs
+  const [players, setPlayers] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Utiliser useEffect pour récupérer les données lors du premier rendu
   useEffect(() => {
-    // Fonction pour appeler l'API
-    const fetchPlayers = async () => {
-      try {
-        const response = await getlist();
-        console.log(response);
-        setPlayers(response.joueurs); 
-      } catch (err) {
-        setError(err); // Gérer les erreurs éventuelles
-      }
-    };
-
-    fetchPlayers();
+    // Logique d'appel API ou autre
   }, []);
-
-  const renderItem = ({ item, index }) => (
-    <View style={styles.row}>
-      <Text style={styles.cell}>{index + 1}</Text>
-      <Text style={styles.cell}>{item.nom}</Text>
-      <Text style={styles.cell}>{item.score}</Text>
-    </View>
-  );
 
   if (error) {
     return (
@@ -42,10 +24,16 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.baniere}>
-        <Text style={styles.baniereText}>Ici viendra la bannière</Text>
+      <Image source={NahoImage} style={styles.baniere} />
+      
+      <View style={styles.content}>
+        <View style={styles.scoreboardContainer}>
+          <Scoreboard />
+        </View>
+        <View style={styles.livedataContainer}>
+          <Livedata />
+        </View>
       </View>
-      <Scoreboard/> 
     </View>
   );
 };
@@ -53,47 +41,26 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
   },
   baniere: {
-    height: height * 0.13, // Hauteur à 10% de la hauteur de l'écran
-    width: '100%', // Prend toute la largeur de l'écran
-    backgroundColor: 'red', // couleur de fond rouge
-    justifyContent: 'center', // centrer le texte verticalement
-    alignItems: 'center', // centrer le texte horizontalement
+    height: height * 0.13,
+    width: '100%',
+    backgroundColor: 'red',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  baniereText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  tableHeader: {
-    flexDirection: 'row',
-    marginBottom: 8,
-  },
-  headerCell: {
+  content: {
     flex: 1,
-    fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
+    flexDirection: 'row', // Arrange les éléments côte à côte
   },
-  row: {
-    flexDirection: 'row',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+  scoreboardContainer: {
+    flex: 7, // 8/10 de l'espace
+    backgroundColor: 'white', // Couleur de fond pour voir la séparation
   },
-  cell: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 16,
+  livedataContainer: {
+    flex: 3, // 2/10 de l'espace
+    backgroundColor: 'gray', // Couleur de fond pour voir la séparation
   },
   error: {
     color: 'red',

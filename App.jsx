@@ -1,4 +1,3 @@
-// MyReactNativeApp/App.js
 import React, { useEffect, useState } from 'react';
 import { Text, View, Button, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -42,7 +41,6 @@ const MainScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text>{message}</Text>
       <View style={styles.screenContainer}>
         {renderScreen()}
       </View>
@@ -71,18 +69,29 @@ const MainScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black', // Fond noir
     justifyContent: 'space-between',
-    padding: 16,
   },
   screenContainer: {
     flex: 1,
+    borderWidth: 5, // Bordure autour des écrans
+    borderColor: '#D3A200', // Couleur de bordure #D3A200
+    borderRadius: 10, // Coins arrondis
+    marginBottom: 0,
   },
   tabContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
+    borderWidth: 5, // Bordure autour des écrans
+    borderColor: '#D3A200', // Couleur de bordure #D3A200
     paddingVertical: 10,
-    borderTopWidth: 1,
+
     borderTopColor: '#ccc',
+  },
+  messageText: {
+    color: '#D3A200', // Couleur du texte pour correspondre à la bordure
+    textAlign: 'center',
+    marginBottom: 10,
   },
 });
 

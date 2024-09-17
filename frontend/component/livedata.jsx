@@ -3,7 +3,7 @@ import { View, Text, FlatList, StyleSheet, Dimensions } from 'react-native';
 import { getlist } from '../tools/API/api'; // Chemin relatif basé sur la structure du projet
 const { width, height } = Dimensions.get('window'); // Récupère la largeur et la hauteur de l'écran
 
-const Scoreboard = () => {
+const Livedata = () => {
   const [players, setPlayers] = useState([]); // Utiliser useState pour stocker les joueurs
   const [error, setError] = useState(null); // État pour gérer les erreurs
 
@@ -16,7 +16,7 @@ const Scoreboard = () => {
         console.log(response);
         setPlayers(response.joueurs); 
       } catch (err) {
-        setError(err); // Gérer les erreurs éventuelles
+        setError(err); // Gérer les erreurs éventuelles 
       }
     };
 
@@ -25,7 +25,6 @@ const Scoreboard = () => {
 
   const renderItem = ({ item, index }) => (
     <View style={styles.row}>
-      <Text style={styles.cellPosition}>{index + 1}</Text>
       <Text style={styles.cellName}>{item.nom}</Text>
       <Text style={styles.cellScore}>{item.score}</Text>
     </View>
@@ -42,8 +41,6 @@ const Scoreboard = () => {
   return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
-        <Text style={styles.headerCellPosition}></Text>
-        <Text style={styles.headerCellName}></Text>
         <Text style={styles.headerCellScore}></Text>
       </View>
       <FlatList
@@ -131,4 +128,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Scoreboard;
+export default Livedata;
